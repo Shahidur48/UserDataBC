@@ -1,0 +1,42 @@
+use com.basiscomponents.db.DataRow
+use com.basiscomponents.db.ResultSet
+use com.basiscomponents.bc.BusinessComponent
+use com.basiscomponents.bc.SqlTableBC
+use java.util.Collection
+use ::PopulateGrid.bbj::PopulateGrid
+
+class public UserTableBC extends SqlTableBC
+    method public UserTableBC()
+        #super!("jdbc:basis:localhost?database=UserLogin&user=admin&password=admin123")
+        #super!.setTable("USER")
+    methodend
+    
+    method public DataRow getAttributesRecord()
+        ar! = #super!.getAttributesRecord()
+        methodret ar!
+    methodend
+    
+    method public ResultSet retrieve()
+        rs! = #super!.retrieve()
+        methodret rs! 
+    methodend
+    
+    method public void setFieldSelection(DataRow fieldSelection!)
+        #super!.setFieldSelection(fieldSelection!)
+    methodend
+    
+classend
+
+userbc! = new UserTableBC()
+fs! = new DataRow()
+fs!.setFieldValue("ID","")
+fs!.setFieldValue("FIRSTNAME","")
+fs!.setFieldValue("LASTNAME","")
+fs!.setFieldValue("EMAIL","")
+fs!.setFieldValue("DOB","")
+userbc!.setFieldSelection(fs!)
+
+rs!= userbc!.retrieve()
+
+populateGrid! = new PopulateGrid()
+populateGrid!.ViewGrid(rs!)

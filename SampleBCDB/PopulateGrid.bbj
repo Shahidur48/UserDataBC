@@ -1,0 +1,40 @@
+use ::BBjGridExWidget/BBjGridExWidget.bbj::BBjGridExWidget
+use com.basiscomponents.db.ResultSet
+ use ::DialogWizard/BBDialog.bbj::BBDialog
+use ::DialogWizard/DialogUtils.bbj::DialogUtils
+use ::DialogWizard/DialogWizardRun.bbj::DialogWizardRun
+use ::bbwindowutils.bbj::BBWindowUtils
+use com.basiscomponents.db.constants.SimpleConstantsResolver
+
+
+class public PopulateGrid
+
+      method public void ViewGrid(ResultSet rs!)
+           declare BBjSysGui sg!
+           declare BBjTopLevelWindow wnd!
+           sg! = BBjAPI().openSysGui("X0")
+           declare BBjGridExWidget grid!
+           wnd! = sg!.addWindow(10,10,600,800,"Demo")
+           wnd!.setCallback(BBjAPI.ON_CLOSE,"byebye")
+           wnd!.setCallback(BBjAPI.ON_RESIZE,"resize")
+           grid! = new BBjGridExWidget(wnd!,150,10,10,600,600)
+
+           grid!.getOptions().setEnableFilter(1)
+           grid!.getOptions().getDefaultColumnDefinition().setFloatingFilter(1)
+           grid!.setData(rs!)
+           process_events
+
+            byebye:
+                bye
+            return
+            resize:
+              ev! = BBjAPI().getLastEvent()
+              w=ev!.getWidth()
+              h=ev!.getHeight()
+              grid!.setSize(w,h)
+            return
+           
+      methodend
+
+classend
+

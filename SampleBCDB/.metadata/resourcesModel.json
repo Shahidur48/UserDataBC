@@ -17,6 +17,17 @@
     ]
   },
   "sourcepathModel": {
-    "resourceIndex": {}
+    "resourceIndex": {
+      "UserTableBC.bbj": {
+        "sourcePath": true,
+        "mediaType": "application/vnd.businessbasic.bbj",
+        "resourceType": "file"
+      },
+      "PopulateGrid.bbj": {
+        "sourcePath": true,
+        "mediaType": "application/vnd.businessbasic.bbj",
+        "resourceType": "file"
+      }
+    }
   }
 }
