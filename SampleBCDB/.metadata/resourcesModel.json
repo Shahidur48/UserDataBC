@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "buildpathModel": {
+    "exclusionPatterns": [
+      "wbp-meta/**",
+      ".classpath",
+      ".guilaunches/**",
+      ".buildpath",
+      "build.log",
+      ".builaunches/**",
+      ".metadata/**",
+      ".bdtPath",
+      ".project",
+      ".work/**",
+      "backups/**",
+      ".settings/**"
+    ]
+  },
+  "sourcepathModel": {
+    "resourceIndex": {}
+  }
+}
