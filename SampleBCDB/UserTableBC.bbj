@@ -25,16 +25,61 @@ class public UserTableBC extends SqlTableBC
         #super!.setFieldSelection(fieldSelection!)
     methodend
     
+    method public DataRow getNewObjectTemplate(DataRow conditions!)
+        declare auto DataRow ot!
+        ot! = #super!.getNewObjectTemplate(conditions!)
+        methodret ot! 
+    methodend
+    
+    method public ResultSet validateWrite(DataRow dr!)
+
+        declare ResultSet vecErrors!
+        vecErrors! = new ResultSet()
+        if dr! = null() then
+            vecErrors!.add("Missing data to write!")
+            methodret vecErrors!
+        endif
+
+        methodret vecErrors!
+    methodend
+    
+    method public DataRow write(DataRow dr!)
+        declare ResultSet vecErrors!
+        vecErrors! = #validateWrite(dr!)
+        if vecErrors!.size() then
+            it! = vecErrors!.iterator()
+            while it!.hasNext()
+                errormsg$ = errormsg$ + it!.next() + $0a$
+            wend
+            errormsg$ = errormsg$(1,len(errormsg$)-1)
+            throw errormsg$,999
+        endif
+        methodret #super!.write(dr!)
+    methodend
+    
 classend
 
 userbc! = new UserTableBC()
-fs! = new DataRow()
-fs!.setFieldValue("ID","")
-fs!.setFieldValue("FIRSTNAME","")
-fs!.setFieldValue("LASTNAME","")
-fs!.setFieldValue("EMAIL","")
-fs!.setFieldValue("DOB","")
-userbc!.setFieldSelection(fs!)
+fieldSelection! = new BBjVector()
+fieldSelection!.addItem("ID")
+fieldSelection!.addItem("FIRSTNAME")
+fieldSelection!.addItem("LASTNAME")
+fieldSelection!.addItem("EMAIL")
+fieldSelection!.addItem("DOB")
+userbc!.setFieldSelection(fieldSelection!)
+
+
+REM Add a new customer
+dr! = userbc!.getNewObjectTemplate(null())
+
+dr!.setFieldValue("ID","dasdsadsaqqqqsss@@SS")
+dr!.setFieldValue("FIRSTNAME","Abul")
+dr!.setFieldValue("LASTNAME","Hossain")
+dr!.setFieldValue("EMAIL","Hossains2@gmail.com")
+dr!.setFieldValue("DOB","1/5/1996")
+
+dr! = userbc!.write(dr!)
+print dr!
 
 rs!= userbc!.retrieve()
 
