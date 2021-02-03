@@ -69,7 +69,7 @@ fieldSelection!.addItem("DOB")
 userbc!.setFieldSelection(fieldSelection!)
 
 
-REM Add a new customer
+REM Add a new User
 dr! = userbc!.getNewObjectTemplate(null())
 
 dr!.setFieldValue("ID","dasdsadsaqqqqsss@@SS")
